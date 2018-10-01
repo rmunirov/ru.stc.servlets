@@ -1,0 +1,15 @@
+plugins {
+    id 'war'
+}
+
+group 'ru.innopolis.stc12'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4' 
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+}
