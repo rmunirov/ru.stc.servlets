@@ -11,11 +11,12 @@
     <title>Title</title>
 </head>
 <body>
+<h1>Iterator</h1>
 <%
-    List<Integer> list = (List<Integer>) request.getAttribute("List");
+    List<Integer> list = (List<Integer>) request.getAttribute("list");
     for (Integer i : list) {
 %>
-<%=i%><<br>
+<%=i%><br>
 <%
     }
 %>

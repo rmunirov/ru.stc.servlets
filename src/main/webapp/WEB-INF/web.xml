@@ -17,11 +17,20 @@
 
     <servlet>
         <servlet-name>Iterator</servlet-name>
-        <servlet-class>ru.innopolis.stc12.servlets.controllers.HelloServlet</servlet-class>
+        <servlet-class>ru.innopolis.stc12.servlets.controllers.IteratorServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Iterator</servlet-name>
         <url-pattern>/iterator</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Student</servlet-name>
+        <servlet-class>ru.innopolis.stc12.servlets.controllers.StudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Student</servlet-name>
+        <url-pattern>/students</url-pattern>
     </servlet-mapping>
 
 </web-app>

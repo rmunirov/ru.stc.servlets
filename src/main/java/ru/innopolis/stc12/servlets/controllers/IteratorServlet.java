@@ -13,7 +13,7 @@ public class IteratorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
-        req.setAttribute("List", list);
+        req.setAttribute("list", list);
         req.getRequestDispatcher("/iterator.jsp").forward(req, resp);
     }
 }
