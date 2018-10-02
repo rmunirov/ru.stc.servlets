@@ -16,7 +16,7 @@
     List<Student> list = (List<Student>) request.getAttribute("list");
     for (Student student : list) {
 %>
-<%=student.getSurname()%> <%=student.getName()%> <%=student.getGroup()%><BR>
+<%=student.getSurname()%> <%=student.getName()%> <%=student.getGroup().getName()%><BR>
 <%
     }
 %>
