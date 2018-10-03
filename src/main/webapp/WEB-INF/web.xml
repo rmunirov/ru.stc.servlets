@@ -33,5 +33,23 @@
         <url-pattern>/students</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Teacher</servlet-name>
+        <servlet-class>ru.innopolis.stc12.servlets.controllers.TeacherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Teacher</servlet-name>
+        <url-pattern>/teachers</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StudentAdder</servlet-name>
+        <servlet-class>ru.innopolis.stc12.servlets.controllers.StudentAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentAdder</servlet-name>
+        <url-pattern>/studentAdder</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 

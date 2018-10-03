@@ -11,10 +11,9 @@
     <title>$Title$</title>
 </head>
 <body>
-<H1>Заголовок страницы</H1>
-<p>
-    Абзац текста
-</p>
+<div>
+    <%@include file="menu.jsp" %>
+</div>
 <div>
     <a href="/hello">Hello link</a><BR>
     <a href="/iterator">Iterator link</a><BR>

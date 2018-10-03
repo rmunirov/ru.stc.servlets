@@ -19,4 +19,8 @@ public class StudentService {
     public List<Student> getAll() {
         return studentDao.getAll();
     }
+
+    public void add(Student student) {
+        studentDao.create(student);
+    }
 }
