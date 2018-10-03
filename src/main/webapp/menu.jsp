@@ -17,6 +17,7 @@
             <td><a href="/students">Students</a></td>
             <td><a href="/teachers">Teachers</a></td>
             <td><a href="/studentAdder">Add student</a></td>
+            <td><a href="/login">Login</a></td>
         </tr>
         </tbody>
     </table>
