@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,23 +44,30 @@ public class StudentAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Sex sex = sexService.get(((int) req.getAttribute("studentSex")));
-        Date dateOfReceipt = ((Date) req.getAttribute("studentDateOfReceipt"));
-        Group group = groupService.get(((int) req.getAttribute("studentGroup")));
-        City city = cityService.get(((int) req.getAttribute("studentCity")));
-        Date dateOfBirth = ((Date) req.getAttribute("studentDateOfBirth"));
+        Sex sex = sexService.get(Integer.valueOf(req.getParameter("studentSex")));
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        Date dateOfReceipt = null;
+        Date dateOfBirth = null;
+        try {
+            dateOfReceipt = format.parse(req.getParameter("studentDateOfReceipt"));
+            dateOfBirth = format.parse(req.getParameter("studentDateOfBirth"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Group group = groupService.get(Integer.valueOf(req.getParameter("studentGroup")));
+        City city = cityService.get(Integer.valueOf(req.getParameter("studentCity")));
         PersonalData personalData = new PersonalData(
                 0,
                 dateOfBirth,
                 city,
-                ((String) req.getAttribute("studentAddress")),
-                ((String) req.getAttribute("studentPhone")),
-                ((String) req.getAttribute("studentEmail"))
+                req.getParameter("studentAddress"),
+                req.getParameter("studentPhone"),
+                req.getParameter("studentEmail")
         );
         studentService.add(new Student(
                 0,
-                ((String) req.getAttribute("studentName")),
-                ((String) req.getAttribute("studentSurname")),
+                req.getParameter("studentName"),
+                req.getParameter("studentSurname"),
                 sex,
                 dateOfReceipt,
                 group,
