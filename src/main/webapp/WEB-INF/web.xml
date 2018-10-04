@@ -7,24 +7,6 @@
     <display-name>MyFirstServlet</display-name>
 
     <servlet>
-        <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>ru.innopolis.stc12.servlets.controllers.HelloServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>HelloWorld</servlet-name>
-        <url-pattern>/hello</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Iterator</servlet-name>
-        <servlet-class>ru.innopolis.stc12.servlets.controllers.IteratorServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Iterator</servlet-name>
-        <url-pattern>/iterator</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>Student</servlet-name>
         <servlet-class>ru.innopolis.stc12.servlets.controllers.StudentServlet</servlet-class>
     </servlet>
