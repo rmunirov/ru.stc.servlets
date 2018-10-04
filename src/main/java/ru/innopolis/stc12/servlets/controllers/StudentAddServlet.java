@@ -1,6 +1,9 @@
 package ru.innopolis.stc12.servlets.controllers;
 
-import ru.innopolis.stc12.servlets.pojo.*;
+import ru.innopolis.stc12.servlets.pojo.City;
+import ru.innopolis.stc12.servlets.pojo.Group;
+import ru.innopolis.stc12.servlets.pojo.Sex;
+import ru.innopolis.stc12.servlets.pojo.Student;
 import ru.innopolis.stc12.servlets.service.CityService;
 import ru.innopolis.stc12.servlets.service.GroupService;
 import ru.innopolis.stc12.servlets.service.SexService;
@@ -45,25 +48,15 @@ public class StudentAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Sex sex = sexService.get(Integer.valueOf(req.getParameter("studentSex")));
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfReceipt = null;
-        Date dateOfBirth = null;
         try {
             dateOfReceipt = format.parse(req.getParameter("studentDateOfReceipt"));
-            dateOfBirth = format.parse(req.getParameter("studentDateOfBirth"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         Group group = groupService.get(Integer.valueOf(req.getParameter("studentGroup")));
         City city = cityService.get(Integer.valueOf(req.getParameter("studentCity")));
-        PersonalData personalData = new PersonalData(
-                0,
-                dateOfBirth,
-                city,
-                req.getParameter("studentAddress"),
-                req.getParameter("studentPhone"),
-                req.getParameter("studentEmail")
-        );
         studentService.add(new Student(
                 0,
                 req.getParameter("studentName"),
@@ -71,7 +64,11 @@ public class StudentAddServlet extends HttpServlet {
                 sex,
                 dateOfReceipt,
                 group,
-                personalData
+                req.getParameter("studentAddress"),
+                req.getParameter("studentPhone"),
+                req.getParameter("studentEmail"),
+                city
         ));
+        resp.sendRedirect("/students");
     }
 }

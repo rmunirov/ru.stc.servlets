@@ -23,8 +23,8 @@
     <table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px;border-collapse:collapse">
         <thead>
         <tr>
-            <th scope="col">Name</th>
             <th scope="col">Surname</th>
+            <th scope="col">Name</th>
             <th scope="col">Group</th>
             <th scope="col">City</th>
         </tr>
@@ -36,13 +36,13 @@
             for (Student student : list) {
         %>
         <tr align="center">
-            <td><%=student.getName()%>
-            </td>
             <td><%=student.getSurname()%>
+            </td>
+            <td><%=student.getName()%>
             </td>
             <td><%=student.getGroup().getName()%>
             </td>
-            <td><%=student.getPersonalData().getCity().getName()%>
+            <td><%=student.getCity().getName()%>
             </td>
         </tr>
         <%

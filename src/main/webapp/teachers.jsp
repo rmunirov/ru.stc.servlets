@@ -22,8 +22,8 @@
     <table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px;border-collapse:collapse">
         <thead>
         <tr>
-            <th scope="col">Name</th>
             <th scope="col">Surname</th>
+            <th scope="col">Name</th>
             <th scope="col">Department</th>
         </tr>
         </thead>
@@ -34,9 +34,9 @@
             for (Teacher teacher : list) {
         %>
         <tr align="center">
-            <td><%=teacher.getName()%>
-            </td>
             <td><%=teacher.getSurname()%>
+            </td>
+            <td><%=teacher.getName()%>
             </td>
             <td><%=teacher.getDepartment().getName()%>
             </td>

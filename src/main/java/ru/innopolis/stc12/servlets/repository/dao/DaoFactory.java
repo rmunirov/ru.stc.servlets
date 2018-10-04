@@ -25,10 +25,6 @@ public class DaoFactory {
         return new PerfomanceDao();
     }
 
-    public static PersonalDataDao getPersonalDataDao() {
-        return new PersonalDataDao();
-    }
-
     public static SexDao getSexDao() {
         return new SexDao();
     }

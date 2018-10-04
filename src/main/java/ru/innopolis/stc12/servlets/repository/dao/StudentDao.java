@@ -1,7 +1,7 @@
 package ru.innopolis.stc12.servlets.repository.dao;
 
+import ru.innopolis.stc12.servlets.pojo.City;
 import ru.innopolis.stc12.servlets.pojo.Group;
-import ru.innopolis.stc12.servlets.pojo.PersonalData;
 import ru.innopolis.stc12.servlets.pojo.Sex;
 import ru.innopolis.stc12.servlets.pojo.Student;
 
@@ -15,10 +15,10 @@ import java.util.List;
 public class StudentDao extends AbstractDao<Student> {
     public StudentDao() {
         readSql = "SELECT * FROM students WHERE id = ?";
-        createSql = "INSERT INTO students VALUES (DEFAULT , ?, ?, ?, ?, ?, ?)";
+        createSql = "INSERT INTO students VALUES (DEFAULT , ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         deleteSql = "DELETE FROM students WHERE id=?";
-        updateSql = "UPDATE students SET name=?, surname=?, sex=?, date_of_receipt=?, \"group\"=?, personal_data=? WHERE id=?";
-        readAllSql = "SELECT * FROM students";
+        updateSql = "UPDATE students SET name=?, surname=?, sex=?, date_of_receipt=?, \"group\"=?, address=?, phone=?, email=?, city=? WHERE id=?";
+        readAllSql = "SELECT * FROM students ORDER BY surname";
     }
 
     @Override
@@ -35,7 +35,7 @@ public class StudentDao extends AbstractDao<Student> {
         while (resultSet.next()) {
             Sex sex = DaoFactory.getSexDao().read(resultSet.getInt("sex"));
             Group group = DaoFactory.getGroupDao().read(resultSet.getInt("group"));
-            PersonalData personalData = DaoFactory.getPersonalDataDao().read(resultSet.getInt("personal_data"));
+            City city = DaoFactory.getCityDao().read(resultSet.getInt("city"));
             list.add(new Student(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
@@ -43,7 +43,10 @@ public class StudentDao extends AbstractDao<Student> {
                     sex,
                     resultSet.getDate("date_of_receipt"),
                     group,
-                    personalData));
+                    resultSet.getString("address"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("email"),
+                    city));
         }
         return list;
     }
@@ -52,14 +55,9 @@ public class StudentDao extends AbstractDao<Student> {
     protected boolean createParse(PreparedStatement statement, Student entity) throws SQLException {
         if (entity.getSex() == null) return false;
         if (entity.getGroup() == null) return false;
-        if (entity.getPersonalData() == null) return false;
+        if (entity.getCity() == null) return false;
 
         parseStatementForCreateAndUpdate(statement, entity);
-        PersonalDataDao personalDataDao = DaoFactory.getPersonalDataDao();
-        PersonalData personalData = personalDataDao.read(entity.getPersonalData().getId());
-        if (personalData == null) {
-            personalDataDao.create(entity.getPersonalData());
-        }
         return statement.execute();
     }
 
@@ -67,10 +65,10 @@ public class StudentDao extends AbstractDao<Student> {
     protected boolean updateParse(PreparedStatement statement, Student entity) throws SQLException {
         if (entity.getSex() == null) return false;
         if (entity.getGroup() == null) return false;
-        if (entity.getPersonalData() == null) return false;
+        if (entity.getCity() == null) return false;
 
         parseStatementForCreateAndUpdate(statement, entity);
-        statement.setInt(7, entity.getId());
+        statement.setInt(10, entity.getId());
         return statement.execute();
     }
 
@@ -87,6 +85,9 @@ public class StudentDao extends AbstractDao<Student> {
         statement.setInt(3, entity.getSex().getId());
         statement.setDate(4, convertUtilDateToSqlDate(entity.getDateOfReceipt()));
         statement.setInt(5, entity.getGroup().getId());
-        statement.setInt(6, entity.getPersonalData().getId());
+        statement.setString(6, entity.getAddress());
+        statement.setString(7, entity.getPhone());
+        statement.setString(8, entity.getEmail());
+        statement.setInt(9, entity.getCity().getId());
     }
 }

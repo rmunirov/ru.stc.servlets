@@ -53,9 +53,6 @@
                 %>
             </select>
         </p>
-        <p>Date of birth:
-            <input maxlength="20" name="studentDateOfBirth" size="20" type="date"/>
-        </p>
         <p>City:
             <%List<City> cityList = ((List<City>) request.getAttribute("cityList"));%>
             <select name="studentCity" size="1">

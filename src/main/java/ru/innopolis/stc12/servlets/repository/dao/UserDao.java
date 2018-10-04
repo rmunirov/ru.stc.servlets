@@ -18,7 +18,7 @@ public class UserDao {
                 preparedStatement.setString(1, login);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
-                    User user = new User(
+                    return new User(
                             resultSet.getInt("id"),
                             resultSet.getString("username"),
                             resultSet.getString("password"),
@@ -33,6 +33,6 @@ public class UserDao {
             System.out.println(e.getMessage());
             return null;
         }
-        return new User("Misha", "123", 1);
+        return null;
     }
 }

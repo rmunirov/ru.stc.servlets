@@ -17,10 +17,10 @@
 <div style="color: blue"> Login or password wrong</div>
 <%}%>
 <form action="/login" method="post">
-    Login:<<br>
-    <input type="text" name="login"><BR>
-    Password:<<br>
-    <input type="password" name="password"><BR>
+    Login:<br>
+    <input type="text" name="login"><br>
+    Password:<br>
+    <input type="password" name="password"><br>
     <input type="submit">
 </form>
 </body>

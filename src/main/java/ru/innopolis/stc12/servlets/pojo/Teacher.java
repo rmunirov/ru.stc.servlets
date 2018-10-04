@@ -5,16 +5,30 @@ public class Teacher {
     private String name;
     private String surname;
     private Department department;
-    private PersonalData personalData;
     private Sex sex;
+    private String address;
+    private String phone;
+    private String email;
 
-    public Teacher(int id, String name, String surname, Department department, PersonalData personalData, Sex sex) {
+    public Teacher(int id, String name, String surname, Department department, Sex sex, String address, String phone, String email) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.department = department;
-        this.personalData = personalData;
         this.sex = sex;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
+
+    public Teacher(String name, String surname, Department department, Sex sex, String address, String phone, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+        this.sex = sex;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
     }
 
     public int getId() {
@@ -49,20 +63,36 @@ public class Teacher {
         this.department = department;
     }
 
-    public PersonalData getPersonalData() {
-        return personalData;
-    }
-
-    public void setPersonalData(PersonalData personalData) {
-        this.personalData = personalData;
-    }
-
     public Sex getSex() {
         return sex;
     }
 
     public void setSex(Sex sex) {
         this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -72,8 +102,10 @@ public class Teacher {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", department=" + department +
-                ", personalData=" + personalData +
                 ", sex=" + sex +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
