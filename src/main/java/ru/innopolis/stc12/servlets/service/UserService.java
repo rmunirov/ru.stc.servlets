@@ -20,7 +20,7 @@ public class UserService {
         if (login == null) {
             return -1;
         }
-        user = userDao.get(login);
+        user = userDao.readByLogin(login);
         if (user == null) {
             return -1;
         }
@@ -35,13 +35,10 @@ public class UserService {
         if (password == null) {
             return false;
         }
-        user = userDao.get(login);
+        user = userDao.readByLogin(login);
         if (user == null) {
             return false;
         }
-        if (user.getPassword().equals(HashUtil.StringToMD5(password))) {
-            return true;
-        }
-        return false;
+        return user.getPassword().equals(HashUtil.StringToMD5(password));
     }
 }

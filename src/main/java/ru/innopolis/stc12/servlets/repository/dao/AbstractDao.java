@@ -1,16 +1,19 @@
 package ru.innopolis.stc12.servlets.repository.dao;
 
-import ru.innopolis.stc12.servlets.repository.connectionManager.ConnectionManager;
-import ru.innopolis.stc12.servlets.repository.connectionManager.ConnectionManagerJdbcImpl;
+import org.apache.log4j.Logger;
+import ru.innopolis.stc12.servlets.repository.connectionmanager.ConnectionManager;
+import ru.innopolis.stc12.servlets.repository.connectionmanager.ConnectionManagerJdbcImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDao<E> implements GenericDao<E> {
-    private static ConnectionManager connectionManager = ConnectionManagerJdbcImpl.getInstance();   //TODO this right?
+    private static final Logger LOGGER = Logger.getLogger(AbstractDao.class);
+    private static ConnectionManager connectionManager = ConnectionManagerJdbcImpl.getInstance();
     protected String readSql;
     protected String createSql;
     protected String deleteSql;
@@ -25,85 +28,82 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
 
     @Override
     public boolean create(E entity) {
-        try (Connection connection = connectionManager.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(createSql)) {
-                return createParse(preparedStatement, entity);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
-            }
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(createSql)) {
+            return createParse(preparedStatement, entity);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e);
             return false;
         }
     }
 
     @Override
     public E read(int id) {
-        try (Connection connection = connectionManager.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(readSql)) {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                List<E> list = readParse(resultSet);
-                if (list.isEmpty()) {
-                    return null;
-                }
-                return list.get(0);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+        ResultSet resultSet = null;
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(readSql)) {
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            List<E> list = readParse(resultSet);
+            if (list.isEmpty()) {
                 return null;
             }
+            return list.get(0);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e);
             return null;
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
         }
     }
 
     @Override
     public boolean update(E entity) {
-        try (Connection connection = connectionManager.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
-                return updateParse(preparedStatement, entity);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
-            }
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
+            return updateParse(preparedStatement, entity);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e);
             return false;
         }
     }
 
     @Override
     public boolean delete(int id) {
-        try (Connection connection = connectionManager.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
-                preparedStatement.setInt(1, id);
-                return preparedStatement.execute();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
-            }
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
+            preparedStatement.setInt(1, id);
+            return preparedStatement.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e);
             return false;
         }
     }
 
     @Override
     public List<E> getAll() {
-        //TODO work very long
-        try (Connection connection = connectionManager.getConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(readAllSql)) {
-                ResultSet resultSet = preparedStatement.executeQuery();
-                return readParse(resultSet);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return null;
-            }
+        ResultSet resultSet = null;
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(readAllSql)) {
+            resultSet = preparedStatement.executeQuery();
+            return readParse(resultSet);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
+            LOGGER.error(e);
+            return new ArrayList<>();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
         }
     }
 }

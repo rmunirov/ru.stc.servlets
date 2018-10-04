@@ -1,6 +1,9 @@
 package ru.innopolis.stc12.servlets.repository.dao;
 
 public class DaoFactory {
+    private DaoFactory() {
+    }
+
     public static CityDao getCityDao() {
         return new CityDao();
     }

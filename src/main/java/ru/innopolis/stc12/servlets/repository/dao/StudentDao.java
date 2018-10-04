@@ -23,7 +23,7 @@ public class StudentDao extends AbstractDao<Student> {
 
     @Override
     protected List<Student> readParse(ResultSet resultSet) throws SQLException {
-/*      TODO can write a larger query using JOIN, but many tables, how better? this solution work long
+/*
         SELECT *
                 FROM students
         INNER JOIN sex ON students.sex = sex.id

@@ -1,4 +1,4 @@
-package ru.innopolis.stc12.servlets.repository.connectionManager;
+package ru.innopolis.stc12.servlets.repository.connectionmanager;
 
 import java.sql.Connection;
 

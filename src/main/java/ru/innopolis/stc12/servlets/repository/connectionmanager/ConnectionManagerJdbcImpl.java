@@ -1,10 +1,13 @@
-package ru.innopolis.stc12.servlets.repository.connectionManager;
+package ru.innopolis.stc12.servlets.repository.connectionmanager;
+
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManagerJdbcImpl implements ConnectionManager {
+    private static final Logger LOGGER = Logger.getLogger(ConnectionManagerJdbcImpl.class);
     private static ConnectionManager connectionManager;
 
     private ConnectionManagerJdbcImpl() {
@@ -27,7 +30,7 @@ public class ConnectionManagerJdbcImpl implements ConnectionManager {
                     "postgres",
                     "hfbkm1988");
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error(e);
         }
         return connection;
     }

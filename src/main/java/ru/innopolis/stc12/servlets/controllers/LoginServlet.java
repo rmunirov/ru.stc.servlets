@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
+    private static final String LOGIN_ATTRIBUTE = "login";
     private UserService userService;
 
     @Override
@@ -23,21 +24,21 @@ public class LoginServlet extends HttpServlet {
             req.getSession().invalidate();
         }
 
-        if (req.getSession().getAttribute("login") != null) {
-            resp.sendRedirect("/inner/dashboard");  //TODO read
+        if (req.getSession().getAttribute(LOGIN_ATTRIBUTE) != null) {
+            resp.sendRedirect("/inner/dashboard");
         }
         req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
+        String login = req.getParameter(LOGIN_ATTRIBUTE);
         String password = req.getParameter("password");
         if (userService.checkAuth(login, password)) {
             int role = userService.getRole(login);
-            req.getSession().setAttribute("login", login);
+            req.getSession().setAttribute(LOGIN_ATTRIBUTE, login);
             req.getSession().setAttribute("role", role);
-            resp.sendRedirect("/inner/dashboard");  //TODO read
+            resp.sendRedirect("/inner/dashboard");
         } else {
             resp.sendRedirect("login?action=wrongUser");
         }
