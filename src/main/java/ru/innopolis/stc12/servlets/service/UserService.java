@@ -41,4 +41,15 @@ public class UserService {
         }
         return user.getPassword().equals(HashUtil.StringToMD5(password));
     }
+
+    public void add(User user) {
+        userDao.create(user);
+    }
+
+    public User get(String login) {
+        if (login == null) {
+            return null;
+        }
+        return userDao.readByLogin(login);
+    }
 }

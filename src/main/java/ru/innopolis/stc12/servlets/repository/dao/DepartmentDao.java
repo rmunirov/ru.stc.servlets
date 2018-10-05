@@ -10,11 +10,9 @@ import java.util.List;
 
 public class DepartmentDao extends AbstractDao<Department> {
     public DepartmentDao() {
-        readSql = "SELECT * FROM department WHERE id = ?";
+        tableName = "department";
         createSql = "INSERT INTO department VALUES (DEFAULT , ?)";
-        deleteSql = "DELETE FROM department WHERE id=?";
         updateSql = "UPDATE department SET name=? WHERE id=?";
-        readAllSql = "SELECT * FROM department";
     }
 
     @Override

@@ -14,11 +14,9 @@ import java.util.List;
 public abstract class AbstractDao<E> implements GenericDao<E> {
     private static final Logger LOGGER = Logger.getLogger(AbstractDao.class);
     private static ConnectionManager connectionManager = ConnectionManagerJdbcImpl.getInstance();
-    protected String readSql;
     protected String createSql;
-    protected String deleteSql;
     protected String updateSql;
-    protected String readAllSql;
+    protected String tableName;
 
     protected abstract List<E> readParse(ResultSet resultSet) throws SQLException;
 
@@ -30,7 +28,9 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
     public boolean create(E entity) {
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(createSql)) {
-            return createParse(preparedStatement, entity);
+            boolean result = createParse(preparedStatement, entity);
+            LOGGER.info("request for creating item " + entity.getClass().getName() + ", result - " + result);
+            return result;
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;
@@ -39,15 +39,18 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
 
     @Override
     public E read(int id) {
+        String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
         ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(readSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             List<E> list = readParse(resultSet);
             if (list.isEmpty()) {
+                LOGGER.info("read record from table " + tableName + ". Record not found");
                 return null;
             }
+            LOGGER.info("read record from table " + tableName + ". Record found");
             return list.get(0);
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -67,7 +70,9 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
     public boolean update(E entity) {
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
-            return updateParse(preparedStatement, entity);
+            boolean result = updateParse(preparedStatement, entity);
+            LOGGER.info("request for updating item " + entity.getClass().getName() + ", result - " + result);
+            return result;
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;
@@ -76,10 +81,13 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
 
     @Override
     public boolean delete(int id) {
+        String sql = "DELETE FROM " + tableName + " WHERE id=?";
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
-            return preparedStatement.execute();
+            boolean result = preparedStatement.execute();
+            LOGGER.info("deleted item in table " + tableName);
+            return result;
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;
@@ -88,10 +96,12 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
 
     @Override
     public List<E> getAll() {
+        String sql = "SELECT * FROM " + tableName;
         ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(readAllSql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             resultSet = preparedStatement.executeQuery();
+            LOGGER.info("read all records from table " + tableName);
             return readParse(resultSet);
         } catch (SQLException e) {
             LOGGER.error(e);

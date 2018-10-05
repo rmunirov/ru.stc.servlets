@@ -11,11 +11,9 @@ import java.util.List;
 
 public class DisciplineDao extends AbstractDao<Discipline> {
     public DisciplineDao() {
-        readSql = "SELECT * FROM discipline WHERE id = ?";
+        tableName = "discipline";
         createSql = "INSERT INTO discipline VALUES (DEFAULT , ?, ?)";
-        deleteSql = "DELETE FROM discipline WHERE id=?";
         updateSql = "UPDATE discipline SET name=?, teacher=? WHERE id=?";
-        readAllSql = "SELECT * FROM discipline";
     }
 
     @Override

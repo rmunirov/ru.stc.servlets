@@ -18,11 +18,9 @@ public class UserDao extends AbstractDao<User> {
     private static ConnectionManager connectionManager = ConnectionManagerJdbcImpl.getInstance();
 
     public UserDao() {
-        readSql = "SELECT * FROM users WHERE id = ?";
+        tableName = "users";
         createSql = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?)";
-        deleteSql = "DELETE FROM users WHERE id=?";
         updateSql = "UPDATE users SET username=?, userpassword=?, role=? WHERE id=?";
-        readAllSql = "SELECT * FROM users";
 
     }
 
@@ -33,6 +31,7 @@ public class UserDao extends AbstractDao<User> {
             preparedStatement.setString(1, login);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+                LOGGER.info("read record by login in table users");
                 return new User(
                         resultSet.getInt("id"),
                         resultSet.getString("username"),

@@ -10,11 +10,9 @@ import java.util.List;
 
 public class SexDao extends AbstractDao<Sex> {
     public SexDao() {
-        readSql = "SELECT * FROM sex WHERE id = ?";
+        tableName = "sex";
         createSql = "INSERT INTO sex VALUES (DEFAULT , ?)";
-        deleteSql = "DELETE FROM sex WHERE id=?";
         updateSql = "UPDATE sex SET name=? WHERE id=?";
-        readAllSql = "SELECT * FROM sex";
     }
 
     @Override

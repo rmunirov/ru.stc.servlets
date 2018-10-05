@@ -17,6 +17,7 @@ public class ConnectionManagerJdbcImpl implements ConnectionManager {
         if (connectionManager == null) {
             connectionManager = new ConnectionManagerJdbcImpl();
         }
+        LOGGER.info("get ConnectionManager instance");
         return connectionManager;
     }
 
@@ -29,6 +30,7 @@ public class ConnectionManagerJdbcImpl implements ConnectionManager {
                     "jdbc:postgresql://localhost:5432/university",
                     "postgres",
                     "hfbkm1988");
+            LOGGER.info("get connection");
         } catch (SQLException | ClassNotFoundException e) {
             LOGGER.error(e);
         }

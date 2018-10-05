@@ -24,8 +24,8 @@ public class DaoFactory {
         return new GroupDao();
     }
 
-    public static PerfomanceDao getPerfomanceDao() {
-        return new PerfomanceDao();
+    public static PerformanceDao getPerfomanceDao() {
+        return new PerformanceDao();
     }
 
     public static SexDao getSexDao() {

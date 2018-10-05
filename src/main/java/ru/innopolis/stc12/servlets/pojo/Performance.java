@@ -1,13 +1,13 @@
 package ru.innopolis.stc12.servlets.pojo;
 
-public class Perfomance {
+public class Performance {
     private int id;
     private Discipline discipline;
     private Student student;
     private Grade grade;
     private String description;
 
-    public Perfomance(int id, Discipline discipline, Student student, Grade grade, String description) {
+    public Performance(int id, Discipline discipline, Student student, Grade grade, String description) {
         this.id = id;
         this.discipline = discipline;
         this.student = student;
@@ -57,7 +57,7 @@ public class Perfomance {
 
     @Override
     public String toString() {
-        return "Perfomance{" +
+        return "Performance{" +
                 "id=" + id +
                 ", discipline=" + discipline +
                 ", student=" + student +

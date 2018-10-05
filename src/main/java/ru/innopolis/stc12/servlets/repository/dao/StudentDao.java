@@ -14,11 +14,9 @@ import java.util.List;
 
 public class StudentDao extends AbstractDao<Student> {
     public StudentDao() {
-        readSql = "SELECT * FROM students WHERE id = ?";
+        tableName = "students";
         createSql = "INSERT INTO students VALUES (DEFAULT , ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        deleteSql = "DELETE FROM students WHERE id=?";
         updateSql = "UPDATE students SET name=?, surname=?, sex=?, date_of_receipt=?, \"group\"=?, address=?, phone=?, email=?, city=? WHERE id=?";
-        readAllSql = "SELECT * FROM students ORDER BY surname";
     }
 
     @Override

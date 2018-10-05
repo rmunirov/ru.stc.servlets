@@ -11,11 +11,9 @@ import java.util.List;
 
 public class GroupDao extends AbstractDao<Group> {
     public GroupDao() {
-        readSql = "SELECT * FROM groups WHERE id = ?";
+        tableName = "groups";
         createSql = "INSERT INTO groups VALUES (DEFAULT , ?, ?)";
-        deleteSql = "DELETE FROM groups WHERE id=?";
         updateSql = "UPDATE groups SET name=?, teacher=? WHERE id=?";
-        readAllSql = "SELECT * FROM groups";
     }
 
     @Override

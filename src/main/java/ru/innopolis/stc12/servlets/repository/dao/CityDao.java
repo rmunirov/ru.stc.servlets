@@ -10,11 +10,9 @@ import java.util.List;
 
 public class CityDao extends AbstractDao<City> {
     public CityDao() {
-        readSql = "SELECT * FROM city WHERE id = ?";
+        tableName = "city";
         createSql = "INSERT INTO city VALUES (DEFAULT , ?)";
-        deleteSql = "DELETE FROM city WHERE id=?";
         updateSql = "UPDATE city SET name=? WHERE id=?";
-        readAllSql = "SELECT * FROM city";
     }
 
     @Override

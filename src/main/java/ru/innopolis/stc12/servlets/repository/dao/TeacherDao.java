@@ -12,11 +12,9 @@ import java.util.List;
 
 public class TeacherDao extends AbstractDao<Teacher> {
     public TeacherDao() {
-        readSql = "SELECT * FROM teachers WHERE id = ?";
+        tableName = "teachers";
         createSql = "INSERT INTO teachers VALUES (DEFAULT , ?, ?, ?, ?, ?, ?, ?)";
-        deleteSql = "DELETE FROM teachers WHERE id=?";
         updateSql = "UPDATE teachers SET name=?, surname=?, department=?, sex=?, address=?, phone=?, email=? WHERE id=?";
-        readAllSql = "SELECT * FROM teachers ORDER BY surname";
     }
 
     @Override

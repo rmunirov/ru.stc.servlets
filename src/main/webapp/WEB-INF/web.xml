@@ -43,12 +43,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Dashboard</servlet-name>
-        <servlet-class>ru.innopolis.stc12.servlets.controllers.DashboardServlet</servlet-class>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>ru.innopolis.stc12.servlets.controllers.RegistrationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Dashboard</servlet-name>
-        <url-pattern>/inner/dashboard</url-pattern>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Discipline</servlet-name>
+        <servlet-class>ru.innopolis.stc12.servlets.controllers.DisciplineServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Discipline</servlet-name>
+        <url-pattern>/discipline</url-pattern>
     </servlet-mapping>
 
 </web-app>

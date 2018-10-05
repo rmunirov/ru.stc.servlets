@@ -11,11 +11,9 @@ import java.util.List;
 
 public class GradeDao extends AbstractDao<Grade> {
     public GradeDao() {
-        readSql = "SELECT * FROM grade WHERE id = ?";
+        tableName = "grade";
         createSql = "INSERT INTO grade VALUES (DEFAULT , ?)";
-        deleteSql = "DELETE FROM grade WHERE id=?";
         updateSql = "UPDATE grade SET name=? WHERE id=?";
-        readAllSql = "SELECT * FROM grade";
     }
 
     @Override
