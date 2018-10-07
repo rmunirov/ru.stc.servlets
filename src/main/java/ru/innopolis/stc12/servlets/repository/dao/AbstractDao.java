@@ -4,10 +4,7 @@ import org.apache.log4j.Logger;
 import ru.innopolis.stc12.servlets.repository.connectionmanager.ConnectionManager;
 import ru.innopolis.stc12.servlets.repository.connectionmanager.ConnectionManagerJdbcImpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,21 +17,30 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
 
     protected abstract List<E> readParse(ResultSet resultSet) throws SQLException;
 
-    protected abstract boolean createParse(PreparedStatement statement, E entity) throws SQLException;
+    protected abstract void mappingStatementForCreate(PreparedStatement statement, E entity) throws SQLException;
 
-    protected abstract boolean updateParse(PreparedStatement statement, E entity) throws SQLException;
+    protected abstract void mappingStatementForUpdate(PreparedStatement statement, E entity) throws SQLException;
 
     @Override
-    public boolean create(E entity) {
+    public int create(E entity) {
+        if (entity == null) return -1;
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(createSql)) {
-            boolean result = createParse(preparedStatement, entity);
-            LOGGER.info("request for creating item " + entity.getClass().getName() + ", result - " + result);
-            return result;
+             PreparedStatement preparedStatement = connection.prepareStatement(createSql, Statement.RETURN_GENERATED_KEYS)) {
+            mappingStatementForCreate(preparedStatement, entity);
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                    if (resultSet.next()) {
+                        int id = resultSet.getInt(1);
+                        LOGGER.info("request for creating item " + entity.getClass().getName() + ", id - " + id + " has been successfully");
+                        return id;
+                    }
+                }
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
+        return -1;
     }
 
     @Override
@@ -68,15 +74,19 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
 
     @Override
     public boolean update(E entity) {
+        if (entity == null) return false;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
-            boolean result = updateParse(preparedStatement, entity);
-            LOGGER.info("request for updating item " + entity.getClass().getName() + ", result - " + result);
-            return result;
+            mappingStatementForUpdate(preparedStatement, entity);
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                LOGGER.info("request for updating item " + entity.getClass().getName() + " has been successfully");
+                return true;
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -85,18 +95,20 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
-            boolean result = preparedStatement.execute();
-            LOGGER.info("deleted item in table " + tableName);
-            return result;
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                LOGGER.info("deleted item in table " + tableName);
+                return true;
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
+        return false;
     }
 
     @Override
     public List<E> getAll() {
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM " + tableName + " ORDER BY id";
         ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

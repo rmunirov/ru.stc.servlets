@@ -23,6 +23,6 @@ public class TeacherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Teacher> list = teacherService.getAll();
         req.setAttribute("list", list);
-        req.getRequestDispatcher("/teachers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/pages/teachers.jsp").forward(req, resp);
     }
 }

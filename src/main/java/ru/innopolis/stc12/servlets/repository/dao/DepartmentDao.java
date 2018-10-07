@@ -19,21 +19,22 @@ public class DepartmentDao extends AbstractDao<Department> {
     protected List<Department> readParse(ResultSet resultSet) throws SQLException {
         List<Department> list = new ArrayList<>();
         while (resultSet.next()) {
-            list.add(new Department(resultSet.getInt("id"), resultSet.getString("name")));
+            list.add(new Department(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name")
+            ));
         }
         return list;
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Department entity) throws SQLException {
+    protected void mappingStatementForCreate(PreparedStatement statement, Department entity) throws SQLException {
         statement.setString(1, entity.getName());
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Department entity) throws SQLException {
+    protected void mappingStatementForUpdate(PreparedStatement statement, Department entity) throws SQLException {
         statement.setString(1, entity.getName());
         statement.setInt(2, entity.getId());
-        return statement.execute();
     }
 }

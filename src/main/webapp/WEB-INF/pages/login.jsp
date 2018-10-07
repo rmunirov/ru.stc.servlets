@@ -26,6 +26,22 @@ left: 50%"
      align="center"> Login or password wrong
 </div>
 <%}%>
+
+<%
+    if ("noAuth".equals(request.getParameter("action"))) {
+%>
+<div style="
+color: tomato;
+position: fixed;
+width: 200px;
+height: 20px;
+margin: -10px 0 0 -100px;
+top: 20%;
+left: 50%"
+     align="center"> Access dinided
+</div>
+<%}%>
+
 <div style="
 position: fixed;
 top: 30%;

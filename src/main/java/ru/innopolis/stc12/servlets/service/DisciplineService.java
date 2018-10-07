@@ -19,4 +19,20 @@ public class DisciplineService {
     public List<Discipline> getAll() {
         return disciplineDao.getAll();
     }
+
+    public Discipline get(int id) {
+        return disciplineDao.read(id);
+    }
+
+    public int add(Discipline discipline) {
+        return disciplineDao.create(discipline);
+    }
+
+    public boolean update(Discipline discipline) {
+        return disciplineDao.update(discipline);
+    }
+
+    public boolean remove(int id) {
+        return disciplineDao.delete(id);
+    }
 }

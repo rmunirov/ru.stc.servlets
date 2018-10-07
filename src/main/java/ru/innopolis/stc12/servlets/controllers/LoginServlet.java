@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         if (req.getSession().getAttribute(LOGIN_ATTRIBUTE) != null) {
             resp.sendRedirect("/index.jsp");
         }
-        req.getRequestDispatcher("/login.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(req, resp);
     }
 
     @Override

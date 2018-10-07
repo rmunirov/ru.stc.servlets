@@ -69,19 +69,17 @@ public class UserDao extends AbstractDao<User> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, User entity) throws SQLException {
+    protected void mappingStatementForCreate(PreparedStatement statement, User entity) throws SQLException {
         statement.setString(1, entity.getName());
         statement.setString(2, entity.getPassword());
         statement.setInt(3, entity.getRole());
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, User entity) throws SQLException {
+    protected void mappingStatementForUpdate(PreparedStatement statement, User entity) throws SQLException {
         statement.setString(1, entity.getName());
         statement.setString(2, entity.getPassword());
         statement.setInt(3, entity.getRole());
         statement.setInt(4, entity.getId());
-        return statement.execute();
     }
 }

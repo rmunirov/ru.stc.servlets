@@ -31,13 +31,14 @@
         <%}%>
         <%
             if (role >= USER_ROLE) {
-        %>
-        <td><a href="/students">Students</a></td>
+        %>638+4+/
+        ++
+        <td><a href="/inner/students">Students</a></td>
         <%}%>
         <%
             if (role >= ADMIN_ROLE) {
         %>
-        <td><a href="/studentAdder">Add student</a></td>
+        <td><a href="/inner/studentAdder">Add student</a></td>
         <%}%>
     </tr>
     </tbody>

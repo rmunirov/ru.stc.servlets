@@ -50,24 +50,14 @@ public class StudentDao extends AbstractDao<Student> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Student entity) throws SQLException {
-        if (entity.getSex() == null) return false;
-        if (entity.getGroup() == null) return false;
-        if (entity.getCity() == null) return false;
-
+    protected void mappingStatementForCreate(PreparedStatement statement, Student entity) throws SQLException {
         parseStatementForCreateAndUpdate(statement, entity);
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Student entity) throws SQLException {
-        if (entity.getSex() == null) return false;
-        if (entity.getGroup() == null) return false;
-        if (entity.getCity() == null) return false;
-
+    protected void mappingStatementForUpdate(PreparedStatement statement, Student entity) throws SQLException {
         parseStatementForCreateAndUpdate(statement, entity);
         statement.setInt(10, entity.getId());
-        return statement.execute();
     }
 
     private java.sql.Date convertUtilDateToSqlDate(Date date) {

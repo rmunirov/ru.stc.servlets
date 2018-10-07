@@ -25,16 +25,14 @@ public class SexDao extends AbstractDao<Sex> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Sex entity) throws SQLException {
+    protected void mappingStatementForCreate(PreparedStatement statement, Sex entity) throws SQLException {
         statement.setString(1, entity.getSex());
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Sex entity) throws SQLException {
+    protected void mappingStatementForUpdate(PreparedStatement statement, Sex entity) throws SQLException {
         statement.setString(1, entity.getSex());
         statement.setInt(2, entity.getId());
-        return statement.execute();
     }
 
 }

@@ -19,4 +19,8 @@ public class TeacherService {
     public List<Teacher> getAll() {
         return teacherDao.getAll();
     }
+
+    public Teacher get(int id) {
+        return teacherDao.read(id);
+    }
 }

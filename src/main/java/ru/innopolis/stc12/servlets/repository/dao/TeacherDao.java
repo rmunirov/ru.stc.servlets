@@ -38,22 +38,14 @@ public class TeacherDao extends AbstractDao<Teacher> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Teacher entity) throws SQLException {
-        if (entity.getSex() == null) return false;
-        if (entity.getDepartment() == null) return false;
-
+    protected void mappingStatementForCreate(PreparedStatement statement, Teacher entity) throws SQLException {
         parseStatementForCreateAndUpdate(statement, entity);
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Teacher entity) throws SQLException {
-        if (entity.getSex() == null) return false;
-        if (entity.getDepartment() == null) return false;
-
+    protected void mappingStatementForUpdate(PreparedStatement statement, Teacher entity) throws SQLException {
         parseStatementForCreateAndUpdate(statement, entity);
         statement.setInt(8, entity.getId());
-        return statement.execute();
     }
 
     private void parseStatementForCreateAndUpdate(PreparedStatement statement, Teacher entity) throws SQLException {

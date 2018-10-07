@@ -36,24 +36,14 @@ public class PerformanceDao extends AbstractDao<Performance> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Performance entity) throws SQLException {
-        if (entity.getDiscipline() == null) return false;
-        if (entity.getGrade() == null) return false;
-        if (entity.getStudent() == null) return false;
-
+    protected void mappingStatementForCreate(PreparedStatement statement, Performance entity) throws SQLException {
         parseStatementForCreateAndUpdate(statement, entity);
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Performance entity) throws SQLException {
-        if (entity.getDiscipline() == null) return false;
-        if (entity.getGrade() == null) return false;
-        if (entity.getStudent() == null) return false;
-
+    protected void mappingStatementForUpdate(PreparedStatement statement, Performance entity) throws SQLException {
         parseStatementForCreateAndUpdate(statement, entity);
         statement.setInt(5, entity.getId());
-        return statement.execute();
     }
 
     private void parseStatementForCreateAndUpdate(PreparedStatement statement, Performance entity) throws SQLException {

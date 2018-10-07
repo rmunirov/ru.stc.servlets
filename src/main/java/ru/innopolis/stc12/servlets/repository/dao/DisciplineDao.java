@@ -27,18 +27,15 @@ public class DisciplineDao extends AbstractDao<Discipline> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Discipline entity) throws SQLException {
-        if (entity.getTeacher() == null) return false;
+    protected void mappingStatementForCreate(PreparedStatement statement, Discipline entity) throws SQLException {
         statement.setString(1, entity.getName());
         statement.setInt(2, entity.getTeacher().getId());
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Discipline entity) throws SQLException {
+    protected void mappingStatementForUpdate(PreparedStatement statement, Discipline entity) throws SQLException {
         statement.setString(1, entity.getName());
         statement.setInt(2, entity.getTeacher().getId());
         statement.setInt(3, entity.getId());
-        return statement.execute();
     }
 }

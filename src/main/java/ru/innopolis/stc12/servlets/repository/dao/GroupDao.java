@@ -27,18 +27,15 @@ public class GroupDao extends AbstractDao<Group> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Group entity) throws SQLException {
-        if (entity.getCurator() == null) return false;
+    protected void mappingStatementForCreate(PreparedStatement statement, Group entity) throws SQLException {
         statement.setString(1, entity.getName());
         statement.setInt(2, entity.getCurator().getId());
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Group entity) throws SQLException {
+    protected void mappingStatementForUpdate(PreparedStatement statement, Group entity) throws SQLException {
         statement.setString(1, entity.getName());
         statement.setInt(2, entity.getCurator().getId());
         statement.setInt(3, entity.getId());
-        return statement.execute();
     }
 }

@@ -26,15 +26,13 @@ public class GradeDao extends AbstractDao<Grade> {
     }
 
     @Override
-    protected boolean createParse(PreparedStatement statement, Grade entity) throws SQLException {
+    protected void mappingStatementForCreate(PreparedStatement statement, Grade entity) throws SQLException {
         statement.setInt(1, entity.getGrade());
-        return statement.execute();
     }
 
     @Override
-    protected boolean updateParse(PreparedStatement statement, Grade entity) throws SQLException {
+    protected void mappingStatementForUpdate(PreparedStatement statement, Grade entity) throws SQLException {
         statement.setInt(1, entity.getGrade());
         statement.setInt(2, entity.getId());
-        return statement.execute();
     }
 }

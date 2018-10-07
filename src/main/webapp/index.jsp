@@ -12,7 +12,7 @@
 </head>
 <body>
 <div>
-    <%@include file="menu.jsp" %>
+    <%@include file="WEB-INF/pages/menu.jsp" %>
 </div>
 <div>
     <h2 align="center">Welcome to university site!</h2>
