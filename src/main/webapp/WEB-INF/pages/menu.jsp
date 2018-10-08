@@ -6,10 +6,38 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+<head>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <script src="/resources/js/bootstrap.min.js"></script>
+    <title>Authorization</title>
+</head>
 <body>
 <%@include file="header.jsp" %>
-
+<div class="navbar navbar-default " role="navigation" id="slide-nav">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index.jsp">University site</a>
+        </div>
+        <div id="slidemenu">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/teachers">Teachers</a></li>
+                <li><a href="/discipline">Disciplines</a></li>
+                <li><a href="/inner/students">Students</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="col-md-6 col-xs-6 text-center"><a href="#">
+                    <button type="button" class=" btn btn-default hom_nav_btn ">Log in</button>
+                </a></li>
+                <li class="col-md-6 col-xs-6 text-center"><a href="#">
+                    <button type="button" class="btn btn-danger hom_nav_btn_red">Sign Up</button>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<%--
 <h1 style="text-align:center">University site.</h1>
 
 <table align="center" border="0" cellpadding="5" cellspacing="5"
@@ -41,6 +69,6 @@
         <%}%>
     </tr>
     </tbody>
-</table>
+</table>--%>
 </body>
 </html>
