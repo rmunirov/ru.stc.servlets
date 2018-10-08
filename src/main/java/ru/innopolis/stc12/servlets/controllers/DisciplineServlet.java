@@ -87,6 +87,7 @@ public class DisciplineServlet extends HttpServlet {
         Discipline discipline = new Discipline(name, teacher);
         int idDiscipline = disciplineService.add(discipline);
         //TODO do a negative message
+
         if (idDiscipline != -1) {
             req.setAttribute("idDiscipline", idDiscipline);
             List<Discipline> disciplineList = disciplineService.getAll();
