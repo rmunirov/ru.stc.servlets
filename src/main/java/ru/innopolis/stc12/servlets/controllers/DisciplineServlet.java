@@ -86,15 +86,16 @@ public class DisciplineServlet extends HttpServlet {
         Teacher teacher = teacherService.get(teacherId);
         Discipline discipline = new Discipline(name, teacher);
         int idDiscipline = disciplineService.add(discipline);
-        //TODO do a negative message
-
         if (idDiscipline != -1) {
             req.setAttribute("idDiscipline", idDiscipline);
-            List<Discipline> disciplineList = disciplineService.getAll();
-            String message = "The new discipline has been successfully created.";
-            req.setAttribute("message", message);
-            forwardListDisciplines(req, resp, disciplineList);
+            req.setAttribute("messageType", "good");
+            req.setAttribute("message", "The new discipline has been successfully created.");
+        } else {
+            req.setAttribute("messageType", "bad");
+            req.setAttribute("message", "The new discipline created has been failed.");
         }
+        List<Discipline> disciplineList = disciplineService.getAll();
+        forwardListDisciplines(req, resp, disciplineList);
     }
 
     private void editDisciplineAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -103,21 +104,26 @@ public class DisciplineServlet extends HttpServlet {
         int idTeacher = Integer.parseInt(req.getParameter("teachers"));
         Teacher teacher = teacherService.get(idTeacher);
         Discipline discipline = new Discipline(idDiscipline, name, teacher);
-        String message = null;
         if (disciplineService.update(discipline)) {
-            message = "The discipline has been successfully updated.";
+            req.setAttribute("message", "The discipline has been successfully updated.");
+            req.setAttribute("messageType", "good");
+        } else {
+            req.setAttribute("messageType", "bad");
+            req.setAttribute("message", "The discipline updated has been failed.");
         }
-        List<Discipline> disciplineList = disciplineService.getAll();
         req.setAttribute("idDiscipline", idDiscipline);
-        req.setAttribute("message", message);
+        List<Discipline> disciplineList = disciplineService.getAll();
         forwardListDisciplines(req, resp, disciplineList);
     }
 
     private void removeDisciplineAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idDiscipline = Integer.parseInt(req.getParameter("idDiscipline"));
         if (disciplineService.remove(idDiscipline)) {
-            String message = "The discipline has been successfully removed";
-            req.setAttribute("message", message);
+            req.setAttribute("messageType", "good");
+            req.setAttribute("message", "The discipline has been successfully removed");
+        } else {
+            req.setAttribute("messageType", "bad");
+            req.setAttribute("message", "The discipline removed has been failed");
         }
         List<Discipline> disciplineList = disciplineService.getAll();
         forwardListDisciplines(req, resp, disciplineList);

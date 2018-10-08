@@ -22,7 +22,11 @@
 </div>
 <div class="container">
     <c:if test="${not empty message}">
-        <div class="alert alert-success">
+        <c:set var="classMessage" value="alert alert-success"/>
+        <c:if test="${not empty messageType && messageType == 'bad'}">
+            <c:set var="classMessage" value="alert alert-danger"/>
+        </c:if>
+        <div class="${classMessage}">
                 ${message}
         </div>
     </c:if>

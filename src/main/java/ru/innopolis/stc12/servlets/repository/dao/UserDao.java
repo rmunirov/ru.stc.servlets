@@ -14,7 +14,6 @@ import java.util.List;
 
 public class UserDao extends AbstractDao<User> {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
-    private static final String GET_LOGIN_SQL = "SELECT * FROM users WHERE username = ?";
     private static ConnectionManager connectionManager = ConnectionManagerJdbcImpl.getInstance();
 
     public UserDao() {
@@ -25,31 +24,24 @@ public class UserDao extends AbstractDao<User> {
     }
 
     public User readByLogin(String login) {
-        ResultSet resultSet = null;
+        String sql = "SELECT * FROM users WHERE username = ?";
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_LOGIN_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, login);
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                LOGGER.info("read record by login in table users");
-                return new User(
-                        resultSet.getInt("id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getInt("role")
-                );
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    LOGGER.info("read record by login in table users");
+                    return new User(
+                            resultSet.getInt("id"),
+                            resultSet.getString("username"),
+                            resultSet.getString("userpassword"),
+                            resultSet.getInt("role")
+                    );
+                }
             }
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    LOGGER.error(e);
-                }
-            }
         }
         return null;
     }

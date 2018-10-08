@@ -31,8 +31,7 @@
         <%}%>
         <%
             if (role >= USER_ROLE) {
-        %>638+4+/
-        ++
+        %>
         <td><a href="/inner/students">Students</a></td>
         <%}%>
         <%

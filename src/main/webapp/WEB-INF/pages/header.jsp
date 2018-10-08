@@ -13,7 +13,7 @@
     <tbody>
     <tr>
         <%
-            String login = (String) request.getSession().getAttribute("login");
+            String login = (String) request.getSession().getAttribute("username");
             if (login != null) {
         %>
         <td>Hi, <%=login%>, <a href="/login?action=logout">Logout</a></td>
