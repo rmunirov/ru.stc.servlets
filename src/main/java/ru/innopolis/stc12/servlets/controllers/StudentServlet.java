@@ -122,7 +122,7 @@ public class StudentServlet extends HttpServlet {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfReceipt = null;
         try {
-            dateOfReceipt = format.parse(req.getParameter("dateOfReceipt"));
+            dateOfReceipt = format.parse(req.getParameter(DATE_OF_RECEIPT_ATTRIBUTE));
         } catch (ParseException e) {
             Logger.getLogger(StudentServlet.class).error(e);
         }
@@ -165,7 +165,7 @@ public class StudentServlet extends HttpServlet {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfReceipt = null;
         try {
-            dateOfReceipt = format.parse(req.getParameter("dateOfReceipt"));
+            dateOfReceipt = format.parse(req.getParameter(DATE_OF_RECEIPT_ATTRIBUTE));
         } catch (ParseException e) {
             Logger.getLogger(StudentServlet.class).error(e);
         }
