@@ -40,8 +40,7 @@
                     <tr>
                         <td>#</td>
                         <th>Discipline</th>
-                        <th>Teacher name</th>
-                        <th>Teacher last name</th>
+                        <th>Teacher</th>
                     </tr>
                     </thead>
                     <c:forEach var="discipline" items="${disciplineList}">
@@ -54,8 +53,7 @@
                                 <a href="/discipline?idDiscipline=${discipline.id}&searchAction=searchById">${discipline.id}</a>
                             </td>
                             <td>${discipline.name}</td>
-                            <td>${discipline.teacher.name}</td>
-                            <td>${discipline.teacher.surname}</td>
+                            <td>${discipline.teacher.surname} ${discipline.teacher.name}</td>
                             <td>
                                 <a href="#" id="remove"
                                    onclick="document.getElementById('action').value = 'remove';

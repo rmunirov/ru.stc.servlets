@@ -20,7 +20,19 @@ public class StudentService {
         return studentDao.getAll();
     }
 
-    public void add(Student student) {
-        studentDao.create(student);
+    public int add(Student student) {
+        return studentDao.create(student);
+    }
+
+    public Student get(int id) {
+        return studentDao.read(id);
+    }
+
+    public boolean update(Student student) {
+        return studentDao.update(student);
+    }
+
+    public boolean remove(int id) {
+        return studentDao.delete(id);
     }
 }

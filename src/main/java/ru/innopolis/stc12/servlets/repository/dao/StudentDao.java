@@ -23,11 +23,11 @@ public class StudentDao extends AbstractDao<Student> {
     protected List<Student> readParse(ResultSet resultSet) throws SQLException {
 /*
         SELECT *
-                FROM students
-        INNER JOIN sex ON students.sex = sex.id
-        INNER JOIN groups ON students.group = groups.id
-        INNER JOIN personal_data ON students.personal_data = personal_data.id
-        WHERE students.id = 38
+FROM students
+       INNER JOIN sex ON students.sex = sex.id
+       INNER JOIN groups ON students.group = groups.id
+       INNER JOIN city ON students.city = city.id
+ORDER BY students.id
         ...*/
         List<Student> list = new ArrayList<>();
         while (resultSet.next()) {

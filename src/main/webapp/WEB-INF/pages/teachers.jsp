@@ -43,21 +43,21 @@
                         <th>Department</th>
                     </tr>
                     </thead>
-                    <c:forEach var="teaher" items="${teacherList}">
+                    <c:forEach var="teacher" items="${teacherList}">
                         <c:set var="classSucess" value=""/>
-                        <c:if test="${idTeacher == teaher.id}">
+                        <c:if test="${idTeacher == teacher.id}">
                             <c:set var="classSucess" value="info"/>
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="/teachers?idTeacher=${teaher.id}&searchAction=searchById">${teaher.id}</a>
+                                <a href="/teachers?idTeacher=${teacher.id}&searchAction=searchById">${teacher.id}</a>
                             </td>
-                            <td>${teaher.surname} ${teaher.name}</td>
-                            <td>${teaher.department.name}</td>
+                            <td>${teacher.surname} ${teacher.name}</td>
+                            <td>${teacher.department.name}</td>
                             <td>
                                 <a href="#" id="remove"
                                    onclick="document.getElementById('action').value = 'remove';
-                                           document.getElementById('idTeacher').value = '${teaher.id}';
+                                           document.getElementById('idTeacher').value = '${teacher.id}';
                                            document.getElementById('teacherForm').submit();">
                                     <span class="glyphicon glyphicon-trash"/>
                                 </a>
@@ -80,37 +80,5 @@
         <button type="submit" class="btn btn-primary btn-md">New Teacher</button>
     </form>
 </div>
-<%--<div>
-    <%@include file="menu.jsp" %>
-</div>
-<div>
-    <h3 align="center">Teacher list</h3>
-</div>
-<div>
-    <table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px;border-collapse:collapse">
-        <thead>
-        <tr>
-            <th scope="col">Teacher</th>
-            <th scope="col">Department</th>
-        </tr>
-        </thead>
-        <tbody>
-        <%
-            //how worked JspWriter (out), class is not available
-            List<Teacher> list = (List<Teacher>) request.getAttribute("list");
-            for (Teacher teacher : list) {
-        %>
-        <tr align="center">
-            <td><%=teacher.getSurname() + " " + teacher.getName()%>
-            </td>
-            <td><%=teacher.getDepartment().getName()%>
-            </td>
-        </tr>
-        <%
-            }
-        %>
-        </tbody>
-    </table>
-</div>--%>
 </body>
 </html>

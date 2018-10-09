@@ -16,7 +16,7 @@ public class InnerFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpSession httpSession = httpServletRequest.getSession();
-        if (httpSession.getAttribute("login") != null) {
+        if (httpSession.getAttribute("username") != null) {
             chain.doFilter(request, response);
         } else {
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;

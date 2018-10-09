@@ -23,4 +23,16 @@ public class TeacherService {
     public Teacher get(int id) {
         return teacherDao.read(id);
     }
+
+    public int add(Teacher teacher) {
+        return teacherDao.create(teacher);
+    }
+
+    public boolean update(Teacher teacher) {
+        return teacherDao.update(teacher);
+    }
+
+    public boolean remove(int id) {
+        return teacherDao.delete(id);
+    }
 }

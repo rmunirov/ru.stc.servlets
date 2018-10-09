@@ -42,7 +42,7 @@ public class StudentAddServlet extends HttpServlet {
         req.setAttribute("sexList", sexList);
         req.setAttribute("groupList", groupList);
         req.setAttribute("cityList", cityList);
-        req.getRequestDispatcher("/WEB-INF/pages/studentAdder.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/pages/new-student.jsp").forward(req, resp);
     }
 
     @Override
