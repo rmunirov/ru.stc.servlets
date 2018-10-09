@@ -42,8 +42,11 @@ public class UserService {
         return user.getPassword().equals(HashUtil.StringToMD5(password));
     }
 
-    public void add(User user) {
-        userDao.create(user);
+    public boolean add(User user) {
+        if (userDao.create(user) == -1) {
+            return false;
+        }
+        return true;
     }
 
     public User get(String login) {

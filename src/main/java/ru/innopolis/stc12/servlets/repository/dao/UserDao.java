@@ -18,8 +18,8 @@ public class UserDao extends AbstractDao<User> {
 
     public UserDao() {
         tableName = "users";
-        createSql = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?)";
-        updateSql = "UPDATE users SET username=?, userpassword=?, role=? WHERE id=?";
+        createSql = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?)";
+        updateSql = "UPDATE users SET username=?, userpassword=?, role=?, email=? WHERE id=?";
 
     }
 
@@ -35,7 +35,8 @@ public class UserDao extends AbstractDao<User> {
                             resultSet.getInt("id"),
                             resultSet.getString("username"),
                             resultSet.getString("userpassword"),
-                            resultSet.getInt("role")
+                            resultSet.getInt("role"),
+                            resultSet.getString("email")
                     );
                 }
             }
@@ -54,7 +55,8 @@ public class UserDao extends AbstractDao<User> {
                     resultSet.getInt("id"),
                     resultSet.getString("username"),
                     resultSet.getString("password"),
-                    resultSet.getInt("role")
+                    resultSet.getInt("role"),
+                    resultSet.getString("email")
             ));
         }
         return list;
@@ -65,6 +67,7 @@ public class UserDao extends AbstractDao<User> {
         statement.setString(1, entity.getName());
         statement.setString(2, entity.getPassword());
         statement.setInt(3, entity.getRole());
+        statement.setString(4, entity.getEmail());
     }
 
     @Override
@@ -72,6 +75,7 @@ public class UserDao extends AbstractDao<User> {
         statement.setString(1, entity.getName());
         statement.setString(2, entity.getPassword());
         statement.setInt(3, entity.getRole());
-        statement.setInt(4, entity.getId());
+        statement.setString(4, entity.getEmail());
+        statement.setInt(5, entity.getId());
     }
 }

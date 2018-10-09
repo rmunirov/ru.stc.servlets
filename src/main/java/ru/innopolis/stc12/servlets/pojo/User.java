@@ -5,18 +5,21 @@ public class User {
     private String name;
     private String password;
     private Integer role;
+    private String email;
 
-    public User(String name, String password, Integer role) {
-        this.name = name;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(Integer id, String name, String password, Integer role) {
+    public User(Integer id, String name, String password, Integer role, String email) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.role = role;
+        this.email = email;
+    }
+
+    public User(String name, String password, Integer role, String email) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -51,6 +54,14 @@ public class User {
         this.role = role;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -58,6 +69,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

@@ -14,7 +14,6 @@
     <title>Authorization</title>
 </head>
 <body>
-<%@include file="header.jsp" %>
 <div class="navbar navbar-default " role="navigation" id="slide-nav">
     <div class="container">
         <div class="navbar-header">
@@ -22,15 +21,15 @@
         </div>
         <div id="slidemenu">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/teachers">Teachers</a></li>
+                <li><a href="/teachers">Teachers</a></li>
                 <li><a href="/discipline">Disciplines</a></li>
                 <li><a href="/inner/students">Students</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="col-md-6 col-xs-6 text-center"><a href="#">
+                <li class="col-md-6 col-xs-6 text-center"><a href="/login">
                     <button type="button" class=" btn btn-default hom_nav_btn ">Log in</button>
                 </a></li>
-                <li class="col-md-6 col-xs-6 text-center"><a href="#">
+                <li class="col-md-6 col-xs-6 text-center"><a href="/registration">
                     <button type="button" class="btn btn-danger hom_nav_btn_red">Sign Up</button>
                 </a></li>
             </ul>

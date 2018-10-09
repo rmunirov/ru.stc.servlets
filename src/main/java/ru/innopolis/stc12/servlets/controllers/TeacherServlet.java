@@ -21,8 +21,8 @@ public class TeacherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Teacher> list = teacherService.getAll();
-        req.setAttribute("list", list);
+        List<Teacher> teacherList = teacherService.getAll();
+        req.setAttribute("teacherList", teacherList);
         req.getRequestDispatcher("/WEB-INF/pages/teachers.jsp").forward(req, resp);
     }
 }
