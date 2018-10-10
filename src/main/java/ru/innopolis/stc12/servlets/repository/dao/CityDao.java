@@ -1,6 +1,7 @@
 package ru.innopolis.stc12.servlets.repository.dao;
 
 import ru.innopolis.stc12.servlets.pojo.City;
+import ru.innopolis.stc12.servlets.repository.connectionmanager.ConnectionManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,9 +11,14 @@ import java.util.List;
 
 public class CityDao extends AbstractDao<City> {
     public CityDao() {
+        super();
         tableName = "city";
         createSql = "INSERT INTO city VALUES (DEFAULT , ?)";
         updateSql = "UPDATE city SET name=? WHERE id=?";
+    }
+
+    public CityDao(ConnectionManager connectionManager) {
+        super(connectionManager);
     }
 
     @Override

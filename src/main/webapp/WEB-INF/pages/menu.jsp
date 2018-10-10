@@ -11,9 +11,11 @@
 <head>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script src="/resources/js/bootstrap.min.js"></script>
-    <title>Authorization</title>
 </head>
 <body>
+<c:set var="sessionRole" value="${sessionScope.get(\"role\")}"/>
+<c:set var="sessionName" value="${sessionScope.get(\"username\")}"/>
+<c:set var="userRoleConst" value="1"/>
 <div class="navbar navbar-default " role="navigation" id="slide-nav">
     <div class="container">
         <div class="navbar-header">
@@ -21,53 +23,42 @@
         </div>
         <div id="slidemenu">
             <ul class="nav navbar-nav">
-                <li><a href="/teachers">Teachers</a></li>
-                <li><a href="/discipline">Disciplines</a></li>
-                <li><a href="/inner/students">Students</a></li>
+                <c:choose>
+                    <c:when test="${empty sessionRole}">
+                        <li><a href="/teachers">Teachers</a></li>
+                        <li><a href="/discipline">Disciplines</a></li>
+                    </c:when>
+                    <c:when test="${not empty sessionRole}">
+                        <li><a href="/teachers">Teachers</a></li>
+                        <li><a href="/discipline">Disciplines</a></li>
+                        <li><a href="/inner/students">Students</a></li>
+                    </c:when>
+                </c:choose>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="col-md-6 col-xs-6 text-center"><a href="/login">
-                    <button type="button" class=" btn btn-default hom_nav_btn ">Log in</button>
-                </a></li>
-                <li class="col-md-6 col-xs-6 text-center"><a href="/registration">
-                    <button type="button" class="btn btn-danger hom_nav_btn_red">Sign Up</button>
-                </a></li>
+                <c:if test="${empty sessionRole}">
+                    <li class="col-md-6 col-xs-6 text-center">
+                        <a href="/login">
+                            <button type="button" class="btn btn-default hom_nav_btn">Log in</button>
+                        </a>
+                    </li>
+                    <li class="col-md-6 col-xs-6 text-center">
+                        <a href="/registration">
+                            <button type="button" class="btn btn-danger hom_nav_btn_red">Sign Up</button>
+                        </a>
+                    </li>
+                </c:if>
+                <c:if test="${not empty sessionRole}">
+                    <li class="col-md-12 col-xs-12 text-center">
+                        <a href="/login?action=logout">
+                            Hi, ${sessionName}
+                            <button type="button" class="btn btn-danger hom_nav_btn_red">Logout</button>
+                        </a>
+                    </li>
+                </c:if>
             </ul>
         </div>
     </div>
 </div>
-<%--
-<h1 style="text-align:center">University site.</h1>
-
-<table align="center" border="0" cellpadding="5" cellspacing="5"
-       style="table-layout: fixed;text-align: center">
-    <tbody>
-    <tr>
-        <%
-            final int ANON_ROLE = 0;
-            final int USER_ROLE = 1;
-            final int ADMIN_ROLE = 2;
-            Integer role = ((Integer) request.getSession().getAttribute("role"));
-            if (role == null) {
-                role = ANON_ROLE;
-            }
-            if (role >= ANON_ROLE) {
-        %>
-        <td><a href="/teachers">Teachers</a></td>
-        <td><a href="/discipline">Disciplines</a></td>
-        <%}%>
-        <%
-            if (role >= USER_ROLE) {
-        %>
-        <td><a href="/inner/students">Students</a></td>
-        <%}%>
-        <%
-            if (role >= ADMIN_ROLE) {
-        %>
-        <td><a href="/inner/studentAdder">Add student</a></td>
-        <%}%>
-    </tr>
-    </tbody>
-</table>--%>
 </body>
 </html>

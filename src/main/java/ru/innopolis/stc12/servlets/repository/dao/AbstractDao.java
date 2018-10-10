@@ -10,10 +10,18 @@ import java.util.List;
 
 public abstract class AbstractDao<E> implements GenericDao<E> {
     private static final Logger LOGGER = Logger.getLogger(AbstractDao.class);
-    private static ConnectionManager connectionManager = ConnectionManagerJdbcImpl.getInstance();
+    private ConnectionManager connectionManager;
     protected String createSql;
     protected String updateSql;
     protected String tableName;
+
+    public AbstractDao() {
+        connectionManager = ConnectionManagerJdbcImpl.getInstance();
+    }
+
+    public AbstractDao(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     protected abstract List<E> readParse(ResultSet resultSet) throws SQLException;
 

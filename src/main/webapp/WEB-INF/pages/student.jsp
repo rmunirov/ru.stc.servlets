@@ -44,6 +44,8 @@
                         <th>City</th>
                     </tr>
                     </thead>
+                    <c:set var="sessionRole" value="${sessionScope.get(\"role\")}"/>
+                    <c:set var="adminRoleConst" value="2"/>
                     <c:forEach var="student" items="${studentList}">
                         <c:set var="classSucess" value=""/>
                         <c:if test="${idStudent == student.id}">
@@ -51,19 +53,28 @@
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="/inner/students?idStudent=${student.id}&searchAction=searchById">${student.id}</a>
+                                <c:choose>
+                                    <c:when test="${not empty sessionRole && sessionRole == adminRoleConst}">
+                                        <a href="/inner/students?idStudent=${student.id}&searchAction=searchById">${student.id}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${student.id}
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                             <td>${student.surname} ${student.name}</td>
                             <td>${student.group.name}</td>
                             <td>${student.city.name}</td>
-                            <td>
-                                <a href="#" id="remove"
-                                   onclick="document.getElementById('action').value = 'remove';
-                                           document.getElementById('idStudent').value = '${student.id}';
-                                           document.getElementById('studentForm').submit();">
-                                    <span class="glyphicon glyphicon-trash"/>
-                                </a>
-                            </td>
+                            <c:if test="${not empty sessionRole && sessionRole == adminRoleConst}">
+                                <td>
+                                    <a href="#" id="remove"
+                                       onclick="document.getElementById('action').value = 'remove';
+                                               document.getElementById('idStudent').value = '${student.id}';
+                                               document.getElementById('studentForm').submit();">
+                                        <span class="glyphicon glyphicon-trash"/>
+                                    </a>
+                                </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </table>
@@ -76,11 +87,13 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/inner/students">
-        <input type="hidden" name="action" value="newStudent">
-        <br>
-        <button type="submit" class="btn btn-primary btn-md">New Student</button>
-    </form>
+    <c:if test="${not empty sessionRole && sessionRole == adminRoleConst}">
+        <form action="/inner/students">
+            <input type="hidden" name="action" value="newStudent">
+            <br>
+            <button type="submit" class="btn btn-primary btn-md">New Student</button>
+        </form>
+    </c:if>
 </div>
 </body>
 </html>

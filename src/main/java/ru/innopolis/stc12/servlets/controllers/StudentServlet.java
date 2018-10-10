@@ -29,7 +29,7 @@ public class StudentServlet extends HttpServlet {
     private static final String MESSAGE_TYPE_ATTRIBUTE = "messageType";
     private static final String NAME_ATTRIBUTE = "name";
     private static final String SURNAME_ATTRIBUTE = "surname";
-    private static final String DATE_OF_RECEIPT_ATTRIBUTE = "dateOfReceipt";
+    private static final String DATE_OF_RECEIPT_ATTRIBUTE = "dateReceipt";
     private static final String ADDRESS_ATTRIBUTE = "address";
     private static final String PHONE_ATTRIBUTE = "phone";
     private static final String EMAIL_ATTRIBUTE = "email";
@@ -44,7 +44,6 @@ public class StudentServlet extends HttpServlet {
     private final SexService sexService = new SexService();
     private final GroupService groupService = new GroupService();
     private final CityService cityService = new CityService();
-    
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -172,7 +171,7 @@ public class StudentServlet extends HttpServlet {
         int idGroup = Integer.parseInt(req.getParameter(GROUP_ATTRIBUTE));
         int idSex = Integer.parseInt(req.getParameter(SEX_ATTRIBUTE));
         int idCity = Integer.parseInt(req.getParameter(CITY_ATTRIBUTE));
-        int idStudent = Integer.parseInt(req.getParameter(STUDENT_ATTRIBUTE));
+        int idStudent = Integer.parseInt(req.getParameter(ID_STUDENT_ATTRIBUTE));
         String address = req.getParameter(ADDRESS_ATTRIBUTE);
         String phone = req.getParameter(PHONE_ATTRIBUTE);
         String email = req.getParameter(EMAIL_ATTRIBUTE);
