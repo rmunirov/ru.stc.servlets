@@ -6,6 +6,11 @@
          version="4.0">
     <display-name>MyFirstServlet</display-name>
 
+    <error-page>
+        <exception-type>java.lang.ArithmeticException</exception-type>
+        <location>/WEB-INF/pages/error.jsp</location>
+    </error-page>
+
     <filter>
         <filter-name>InnerFilter</filter-name>
         <filter-class>ru.innopolis.stc12.servlets.controllers.filtres.InnerFilter</filter-class>
