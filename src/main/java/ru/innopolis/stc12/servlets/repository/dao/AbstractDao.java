@@ -30,7 +30,7 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
     protected abstract void mappingStatementForUpdate(PreparedStatement statement, E entity) throws SQLException;
 
     @Override
-    public int create(E entity) {
+    public final int create(E entity) {
         if (entity == null) return -1;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(createSql, Statement.RETURN_GENERATED_KEYS)) {
@@ -52,7 +52,7 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
     }
 
     @Override
-    public E read(int id) {
+    public final E read(int id) {
         String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
         ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
@@ -81,7 +81,7 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
     }
 
     @Override
-    public boolean update(E entity) {
+    public final boolean update(E entity) {
         if (entity == null) return false;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSql)) {
@@ -98,7 +98,7 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public final boolean delete(int id) {
         String sql = "DELETE FROM " + tableName + " WHERE id=?";
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -115,7 +115,7 @@ public abstract class AbstractDao<E> implements GenericDao<E> {
     }
 
     @Override
-    public List<E> getAll() {
+    public final List<E> getAll() {
         String sql = "SELECT * FROM " + tableName + " ORDER BY id";
         ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();

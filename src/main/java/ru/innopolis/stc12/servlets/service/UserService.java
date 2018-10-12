@@ -39,7 +39,7 @@ public class UserService {
         if (user == null) {
             return false;
         }
-        return user.getPassword().equals(HashUtil.StringToMD5(password));
+        return user.getPassword().equals(HashUtil.HashPassword(password));
     }
 
     public boolean add(User user) {

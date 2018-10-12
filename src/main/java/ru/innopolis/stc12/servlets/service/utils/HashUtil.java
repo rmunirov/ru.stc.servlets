@@ -1,30 +1,16 @@
 package ru.innopolis.stc12.servlets.service.utils;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 public class HashUtil {
+    private static HashStrategy strategy = new HashByMD5();
+
     private HashUtil() {
     }
 
-    public static String StringToMD5(String password) {
-        MessageDigest messageDigest = null;
-        byte[] digest = new byte[0];
+    public static void setStrategy(HashStrategy strategy) {
+        HashUtil.strategy = strategy;
+    }
 
-        try {
-            messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.reset();
-            messageDigest.update(password.getBytes());
-            digest = messageDigest.digest();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        BigInteger bigInteger = new BigInteger(1, digest);
-        String res = bigInteger.toString(16);
-        while (res.length() < 32) {
-            res = "0" + res;
-        }
-        return res;
+    public static String HashPassword(String password) {
+        return strategy.execute(password);
     }
 }

@@ -54,7 +54,7 @@ public class RegistrationServlet extends HttpServlet {
             forwardWithMessage(req, resp, "Password and Confirm password not equals", "bad");
             return;
         }
-        if (userService.add(new User(username, HashUtil.StringToMD5(password), USER_ROLE, email))) {
+        if (userService.add(new User(username, HashUtil.HashPassword(password), USER_ROLE, email))) {
             forwardWithMessage(req, resp, "Registration completed successfully, <a href=\"/login\"> Log in</a>", "good");
         } else {
             forwardWithMessage(req, resp, "Registration failed, try again later", "bad");
