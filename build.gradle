@@ -23,3 +23,7 @@ dependencies {
     compile 'commons-validator:commons-validator:1.4.1'
     testCompileOnly'org.apiguardian:apiguardian-api:1.0.0'
 }
+
+task stage() {
+    dependsOn clean, war
+}
